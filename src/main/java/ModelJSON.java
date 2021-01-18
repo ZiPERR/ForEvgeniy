@@ -62,4 +62,10 @@ public class ModelJSON {
     public void setSearched(boolean searched) {
         isSearched = searched;
     }
+
+    public String toString() {
+        return "\"id\": " + id + ", \"name\": " + "\"" + name + "\"" +
+                ", \"state\": " + "\"" + state + "\"" + ", \"country\": "
+                + "\"" + country + "\"";
+    }
 }

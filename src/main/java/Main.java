@@ -1,23 +1,26 @@
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
+import com.google.gson.Gson;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Main {
     public static void main(String[] args) throws FileNotFoundException {
+        BufferedReader br = new BufferedReader(new FileReader("toast.json"));
+        Gson gson = new Gson();
+        Coords coords = null;
+        List<ModelJSON> model = new ArrayList<>();
+        model.add(gson.fromJson(br, ModelJSON.class));
+        System.out.println(model);
 
-        BufferedReader br = new BufferedReader(new FileReader("YOUR JSON NAME HERE"));
-        JsonObject jsonObject = new JsonParser().parse(br).getAsJsonObject();
-        String jsonToString = jsonObject.toString();
-        jsonToString = jsonToString
-                .replace(":", ": ")
-                .replace(",", ", ")
-                .replace("\"coord\":", "")
-                .replace("  ", " ")
-                .replace("{\"l", "\"l")
-                .replace("}}", "}");
-        System.out.println(jsonToString);
+
+        try {
+            coords = gson.fromJson(new FileReader("toast.json"), Coords.class);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        System.out.println(coords);
     }
 }
