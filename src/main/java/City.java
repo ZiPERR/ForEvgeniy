@@ -1,11 +1,19 @@
-public class ModelJSON {
+public class City {
     private int id;
     private String name;
     private String state;
     private String country;
     private double lon;
     private double lat;
-    private boolean isSearched = false;
+
+    public City(int id, String name, String state, String country, double lon, double lat) {
+        this.id = id;
+        this.name = name;
+        this.state = state;
+        this.country = country;
+        this.lon = lon;
+        this.lat = lat;
+    }
 
     public int getId() {
         return id;
@@ -53,14 +61,6 @@ public class ModelJSON {
 
     public void setLat(double lat) {
         this.lat = lat;
-    }
-
-    public boolean isSearched() {
-        return isSearched;
-    }
-
-    public void setSearched(boolean searched) {
-        isSearched = searched;
     }
 
     public String toString() {

@@ -1,26 +1,41 @@
 import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
-import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Main {
-    public static void main(String[] args) throws FileNotFoundException {
-        BufferedReader br = new BufferedReader(new FileReader("toast.json"));
+
+    public static void main(String[] args) throws FileNotFoundException, IllegalStateException {
+
+        FileReader fileReader = new FileReader("toast.json");
         Gson gson = new Gson();
-        Coords coords = null;
-        List<ModelJSON> model = new ArrayList<>();
-        model.add(gson.fromJson(br, ModelJSON.class));
-        System.out.println(model);
+        City jsonList = gson.fromJson(fileReader, City.class);
+
+        JsonParser jsonParser = new JsonParser();
+        JsonObject jsonObject = (JsonObject) jsonParser.parse(new FileReader("toast.json"));
+        JsonElement jsonElement = jsonObject.get("coord");
 
 
-        try {
-            coords = gson.fromJson(new FileReader("toast.json"), Coords.class);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        System.out.println(coords);
+        String[] test = jsonElement.toString().split(",");
+        String[] str = jsonList.toString().split(", ");
+
+        List<String> list;
+        List<String> list1;
+
+
+        list1 = Arrays.asList(str);
+        System.out.print(list1.toString().replace("]", ""));
+
+        list = Arrays.asList(test);
+        System.out.print(list.toString().replace("{", "")
+                .replace("}", "").replace("[", ", ")
+                .replace("\":", "\": "));
+
     }
 }
