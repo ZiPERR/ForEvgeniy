@@ -6,13 +6,27 @@ public class City {
     private double lon;
     private double lat;
 
-    public City(int id, String name, String state, String country, double lon, double lat) {
+    public double getLon() {
+        return lon;
+    }
+
+    public void setLon(double lon) {
+        this.lon = lon;
+    }
+
+    public double getLat() {
+        return lat;
+    }
+
+    public void setLat(double lat) {
+        this.lat = lat;
+    }
+
+    public City(int id, String name, String state, String country) {
         this.id = id;
         this.name = name;
         this.state = state;
         this.country = country;
-        this.lon = lon;
-        this.lat = lat;
     }
 
     public int getId() {
@@ -47,25 +61,10 @@ public class City {
         this.country = country;
     }
 
-    public double getLon() {
-        return lon;
-    }
-
-    public void setLon(double lon) {
-        this.lon = lon;
-    }
-
-    public double getLat() {
-        return lat;
-    }
-
-    public void setLat(double lat) {
-        this.lat = lat;
-    }
 
     public String toString() {
-        return "\"id\": " + id + ", \"name\": " + "\"" + name + "\"" +
+        return "{" + "\"id\": " + id + ", \"name\": " + "\"" + name + "\"" +
                 ", \"state\": " + "\"" + state + "\"" + ", \"country\": "
-                + "\"" + country + "\"";
+                + "\"" + country + "\"" + ", " + "\"lon\": " + lon + ", " + "\"lat\": " + lat + "}";
     }
 }

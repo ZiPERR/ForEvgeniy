@@ -1,41 +1,36 @@
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.google.gson.reflect.TypeToken;
 
-import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.IOException;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class Main {
 
-    public static void main(String[] args) throws FileNotFoundException, IllegalStateException {
-
-        FileReader fileReader = new FileReader("YOUR JSON FILE PATH");
+    public static void main(String[] args) throws IllegalStateException, IOException {
+        FileReader fileReader = new FileReader("toast.json");
         Gson gson = new Gson();
-        City jsonList = gson.fromJson(fileReader, City.class);
-
         JsonParser jsonParser = new JsonParser();
-        JsonObject jsonObject = (JsonObject) jsonParser.parse(new FileReader("YOUR JSON FILE PATH"));
-        JsonElement jsonElement = jsonObject.get("coord");
+        JsonArray jsonArray = (JsonArray) jsonParser.parse(new FileReader("toast.json"));
 
+        Type listType = new TypeToken<ArrayList<City>>() {
+        }.getType();
 
-        String[] test = jsonElement.toString().split(",");
-        String[] str = jsonList.toString().split(", ");
+        List<City> listCity = gson.fromJson(jsonArray, listType);
 
-        List<String> list;
-        List<String> list1;
-
-
-        list1 = Arrays.asList(str);
-        System.out.print(list1.toString().replace("]", ""));
-
-        list = Arrays.asList(test);
-        System.out.print(list.toString().replace("{", "")
-                .replace("}", "").replace("[", ", ")
-                .replace("\":", "\": "));
-
+        for (int i = 0; i < listCity.size(); i++) {
+            JsonElement lonElement = jsonArray.getAsJsonArray().get(i).getAsJsonObject().get("coord").getAsJsonObject().get("lon");
+            JsonElement latElement = jsonArray.getAsJsonArray().get(i).getAsJsonObject().get("coord").getAsJsonObject().get("lat");
+            for(City c : listCity){
+                c.setLat(latElement.getAsDouble());
+                c.setLon(lonElement.getAsDouble());
+            }
+            System.out.println(listCity.get(i));
+        }
     }
 }
