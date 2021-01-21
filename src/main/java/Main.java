@@ -13,12 +13,12 @@ public class Main {
 
     public static void main(String[] args) throws FileNotFoundException, IllegalStateException {
 
-        FileReader fileReader = new FileReader("toast.json");
+        FileReader fileReader = new FileReader("YOUR PATH TO JSON FILE");
         Gson gson = new Gson();
         City jsonList = gson.fromJson(fileReader, City.class);
 
         JsonParser jsonParser = new JsonParser();
-        JsonObject jsonObject = (JsonObject) jsonParser.parse(new FileReader("toast.json"));
+        JsonObject jsonObject = (JsonObject) jsonParser.parse(new FileReader("YOUR PATH TO JSON FILE"));
         JsonElement jsonElement = jsonObject.get("coord");
 
 
